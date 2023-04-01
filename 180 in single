@@ -41,26 +41,26 @@ for i, ax in enumerate(axs):
     material_category = dataset.iloc[i]['Alp']
     
     if days_ago > cutoff_180:
-        bg_color = 'red'
+        bg_color = '#F1895F'
         font_color = 'white'
         
     elif days_ago > cutoff_90:
-        bg_color = 'yellow'
+        bg_color = '#EFEF90'
         font_color = 'black'
         
     elif quantity == 0:
-        bg_color = '#F5F5F5'
+        bg_color = 'white'
         font_color = 'black'
                 
     else:
-        bg_color = 'green'
+        bg_color = '#9BF15E'
         font_color = 'white'
     
     if batch_row == 1:
-        tbg_color = 'red'
+        tbg_color = '#F16060'
         tfont_color = 'white'
     if batch_row == 0:
-        tbg_color = 'white'
+        tbg_color = '#6FF079'
         tfont_color = 'black'
         
     if quantity == 0:
