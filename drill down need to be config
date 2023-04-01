@@ -1,0 +1,88 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+
+# Define the cutoff values for the conditional formatting
+cutoff_90 = 90
+cutoff_180 = 180
+
+# Create a figure and subplots object
+fig, axs = plt.subplots(nrows=6, ncols=3, figsize=(5, 9), dpi=300)
+
+# Flatten the subplots array so we can easily loop through it
+axs = axs.flatten()
+
+font_style1 = {'fontname': 'Arial'}
+font_style = {'fontname': 'Times New Roman'}
+
+# Define the function to be called when a subplot is clicked
+def on_click(event):
+    # Get the category of the material corresponding to the clicked subplot
+    category = dataset.iloc[event.ind[0]]['Alp']
+    
+    # Filter the dataset to show only the data for the selected category
+    category_data = dataset[dataset['Alp'] == category].reset_index(drop=True)
+    
+    # Print the data for the selected category
+    print(category_data)
+
+# Loop through each subplot and add the data as a text
+for i, ax in enumerate(axs):
+    # Check if we've reached the end of the dataset
+    if i >= len(dataset):
+        break
+    
+    location = dataset.iloc[i]['location']
+    quantity = dataset.iloc[i]['Qty']
+    value = int(dataset.iloc[i]['value']/10000)
+    days_ago = dataset.iloc[i]['Grn']
+    batch_row = dataset.iloc[i]['block1']
+    material_category = dataset.iloc[i]['Alp']
+    
+    if days_ago > cutoff_180:
+        bg_color = 'red'
+        font_color = 'white'
+        
+    elif days_ago > cutoff_90:
+        bg_color = 'yellow'
+        font_color = 'black'
+        
+    elif quantity == 0:
+        bg_color = 'white'
+        font_color = 'black'
+                
+    else:
+        bg_color = 'green'
+        font_color = 'white'
+    
+    if batch_row == 1:
+        tbg_color = 'red'
+        tfont_color = 'white'
+    if batch_row == 0:
+        tbg_color = 'white'
+        tfont_color = 'black'
+        
+    if quantity == 0:
+        quantity = "Rack Empty"
+        value = " "
+        ax.text(0.5, 0.5, f'{quantity}\n{value}',
+            fontsize=17, ha='center', va='center',
+            bbox=dict(facecolor=bg_color, edgecolor='black', boxstyle='round'), color=font_color, weight='bold', **font_style)
+        ax.axis('off')
+        ax.set_title(f"{location}", fontsize=15, color=tfont_color, weight='bold', bbox=dict(facecolor=tbg_color, edgecolor='white', boxstyle='round'),  **font_style1, pad=-15)
+    else:
+        ax.text(0.5, 0.5, f'{quantity}pcs\n₹{value}k',
+            fontsize=17, ha='center', va='center',
+            bbox=dict(facecolor=bg_color, edgecolor='black', boxstyle='round'), color=font_color, weight='bold', **font_style)
+        ax.axis('off')
+        ax.set_title(f"{location}\n{material_category}", fontsize=15, color=tfont_color, weight='bold', bbox=dict(facecolor=tbg_color, edgecolor='white', boxstyle='round'), **font_style1, pad=-15)
+
+# Adjust the layout and padding of the subplots
+plt.subplots_adjust(top=0.8, bottom=0.01, left=0.05, right=0.95, hspace=0.65, wspace=0.2)
+
+# Save the plot with tight bounding box
+plt.savefig('subplot_figure.png', dpi=300, bbox_inches='tight')
+
+# Show the plot
+plt.show()
