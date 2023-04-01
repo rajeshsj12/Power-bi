@@ -41,11 +41,11 @@ for i, ax in enumerate(axs):
     material_category = dataset.iloc[i]['Alp']
     
     if days_ago > cutoff_180:
-        bg_color = '#F1895F'
-        font_color = 'white'
+        bg_color = 'red'
+        font_color = 'black'
         
     elif days_ago > cutoff_90:
-        bg_color = '#EFEF90'
+        bg_color = 'yellow'
         font_color = 'black'
         
     elif quantity == 0:
@@ -54,13 +54,13 @@ for i, ax in enumerate(axs):
                 
     else:
         bg_color = '#9BF15E'
-        font_color = 'white'
+        font_color = 'black'
     
     if batch_row == 1:
-        tbg_color = '#F16060'
-        tfont_color = 'white'
+        tbg_color = '#FF5D40'
+        tfont_color = 'black'
     if batch_row == 0:
-        tbg_color = '#6FF079'
+        tbg_color = '#79FF3F'
         tfont_color = 'black'
         
     if quantity == 0:
@@ -70,7 +70,7 @@ for i, ax in enumerate(axs):
             fontsize=17, ha='center', va='center',
             bbox=dict(facecolor=bg_color, edgecolor='black', boxstyle='round'), color=font_color, weight='bold', **font_style)
         ax.axis('off')
-        ax.set_title(f"{location}", fontsize=15, color=tfont_color, weight='bold', bbox=dict(facecolor=tbg_color, edgecolor='white', boxstyle='round'),  **font_style1, pad=-15)
+        ax.set_title(f"{location}", fontsize=15, color=font_color, weight='bold', bbox=dict(facecolor=bg_color, edgecolor='white', boxstyle='round'),  **font_style1, pad=-15)
     else:
         ax.text(0.5, 0.5, f'{quantity} pcs\n₹{value}k',
             fontsize=17, ha='center', va='center',
