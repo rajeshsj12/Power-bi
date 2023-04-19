@@ -1,0 +1,28 @@
+Manuf cost = 'Data Sheet'[Manufacturing Price]*'Data Sheet'[Units Sold]
+Days stores = DATEDIFF('Data Sheet'[Manufacturing Date],'Data Sheet'[Sales Date],DAY)
+
+
+2 column
+x- country
+y- sales price
+ledg- product
+
+pie-ledg(country),val(manuf cost), 
+
+
+
+Gross sales = 'Data Sheet'[Sales Date]*'Data Sheet'[Units Sold]
+
+
+new table
+Country = DISTINCT('Data Sheet'[Country])
+Oldest manuf date = minx(FILTER('Data Sheet','Data Sheet'[Country]=Country[Country]),'Data Sheet'[Manufacturing Date])
+sales = sumx(FILTER('Data Sheet','Data Sheet'[Country]=Country[Country]),'Data Sheet'[Gross sales]-'Data Sheet'[Discounts])
+
+
+
+measures
+country sales = COUNT('Data Sheet'[Country])
+Min sales = MINX('Data Sheet','Data Sheet'[Gross sales]-'Data Sheet'[Discounts])
+Sales = sumx('Data Sheet','Data Sheet'[Gross sales]-'Data Sheet'[Discounts])
+Sales % = sumx('Data Sheet','Data Sheet'[Gross sales]-'Data Sheet'[Discounts])/CALCULATE([Sales],ALL('Data Sheet'))*100
