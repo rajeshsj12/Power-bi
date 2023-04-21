@@ -22,6 +22,9 @@ SUMX(
 
 
 
+exchange rate api . com
+api key: 0d469f2a125fb84cb91d732f
+
 Excel:
 =IMPORTXML("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=INR", "//span[@class='uccResultAmount']")
 
