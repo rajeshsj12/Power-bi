@@ -19,3 +19,11 @@ SUMX(
         BLANK()
     )
 )
+
+
+
+Excel:
+=IMPORTXML("https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=INR", "//span[@class='uccResultAmount']")
+
+
+=FILTERXML(A1,"//table[@class='exchange-rate-table']/tbody/tr/td")
