@@ -1,0 +1,21 @@
+Converted Value = Table[Value] * 
+                  LOOKUPVALUE(ExchangeRates[Exchange Rate], 
+                  ExchangeRates[From Currency], Table[Original Currency],
+                  ExchangeRates[To Currency], "INR")
+
+
+
+Converted Value = CONVERT(Table[Value], "Unit1", "Unit2")
+
+
+Amount in INR =
+SUMX(
+    VALUES(Table1[Currency]), 
+    SWITCH(
+        TRUE(),
+        VALUES(Table1[Currency]) = "USD", Table1[Column1] * LOOKUPVALUE(ExchangeRates[Exchange Rate], ExchangeRates[Currency], "USD"),
+        VALUES(Table1[Currency]) = "GBP", Table1[Column4] * LOOKUPVALUE(ExchangeRates[Exchange Rate], ExchangeRates[Currency], "GBP"),
+        VALUES(Table1[Currency]) = "JPY", Table1[Column5] * LOOKUPVALUE(ExchangeRates[Exchange Rate], ExchangeRates[Currency], "JPY"),
+        BLANK()
+    )
+)
