@@ -1,0 +1,30 @@
+Max Cost by Country =
+
+VAR FilteredCost =
+
+    FILTER(
+
+        Cost,
+
+        Cost[DestinationPort] = "Chennai"
+
+    )
+
+RETURN
+
+    MAXX(
+
+        SUMMARIZE(
+
+            FilteredCost,
+
+            Cost[Country],
+
+            "Max Cost", MAXX(Result, Result[Cost])
+
+        ),
+
+        [Max Cost]
+
+    )
+
