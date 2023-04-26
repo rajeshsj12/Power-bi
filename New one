@@ -28,3 +28,18 @@ RETURN
 
     )
 
+
+
+Max Cost in Country = 
+
+VAR SelectedCountry = SELECTEDVALUE('Cost Table'[Country])
+
+RETURN 
+
+CALCULATE(MAX('Cost Table'[Cost]), 
+
+          FILTER('Cost Table', 
+
+                 'Cost Table'[Country] = SelectedCountry && 
+
+                 'Cost Table'[Designation Port] = "Chennai"))
